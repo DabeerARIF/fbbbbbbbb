@@ -1,0 +1,923 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Facebook - Home</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            color: #050505;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 60px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 18px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 4px rgba(0,0,0,.15);
+        }
+
+        .left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #1877f2;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search {
+            width: 230px;
+            padding: 11px 16px;
+            border: none;
+            outline: none;
+            border-radius: 25px;
+            background: #f0f2f5;
+            font-size: 15px;
+        }
+
+        /* CENTER NAV */
+
+        .nav-center {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-center a {
+            width: 100px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 24px;
+            color: #65676b;
+            border-radius: 10px;
+        }
+
+        .nav-center a:hover {
+            background: #f0f2f5;
+        }
+
+        .nav-center .active {
+            color: #1877f2;
+            border-bottom: 3px solid #1877f2;
+            border-radius: 0;
+        }
+
+        /* RIGHT NAV */
+
+        .right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .signup-link {
+            padding: 10px 14px;
+            border-radius: 20px;
+            background: #e7f3ff;
+            color: #0866ff;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .signup-link:hover {
+            background: #d8ebff;
+        }
+
+        .circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: #e4e6eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .circle:hover {
+            background: #d8dadf;
+        }
+
+        .profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* MAIN */
+
+        .layout {
+            max-width: 1500px;
+            margin: auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr 280px;
+            gap: 20px;
+        }
+
+        /* LEFT SIDEBAR */
+
+        .sidebar {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+
+        .side-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .side-item:hover {
+            background: #e4e6eb;
+        }
+
+        .side-icon {
+            font-size: 24px;
+        }
+
+        .side-profile {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .line {
+            border: none;
+            border-top: 1px solid #ccd0d5;
+            margin: 10px 0;
+        }
+
+        .shortcuts {
+            color: #65676b;
+            margin: 15px 10px;
+        }
+
+        /* CENTER */
+
+        .center {
+            max-width: 680px;
+            width: 100%;
+            margin: auto;
+        }
+
+        /* STORIES */
+
+        .stories {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            margin-bottom: 18px;
+        }
+
+        .story {
+            min-width: 110px;
+            height: 190px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #ddd;
+        }
+
+        .story > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .story::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                transparent,
+                rgba(0,0,0,.7)
+            );
+        }
+
+        .story-avatar {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 38px !important;
+            height: 38px !important;
+            border-radius: 50%;
+            border: 3px solid #1877f2;
+            z-index: 2;
+        }
+
+        .story-name {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            font-weight: bold;
+            z-index: 3;
+        }
+
+        /* CARD */
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 18px;
+            box-shadow: 0 1px 2px rgba(0,0,0,.15);
+        }
+
+        /* CREATE POST */
+
+        .create {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .post-input {
+            flex: 1;
+            background: #f0f2f5;
+            border: none;
+            outline: none;
+            border-radius: 25px;
+            padding: 12px 18px;
+            font-size: 15px;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #ddd;
+            margin-top: 12px;
+            padding-top: 10px;
+        }
+
+        .post-actions a {
+            text-decoration: none;
+            color: #65676b;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+
+        .post-actions a:hover {
+            background: #f0f2f5;
+        }
+
+        /* POST */
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .post-info h3 {
+            font-size: 15px;
+        }
+
+        .post-info small {
+            color: #65676b;
+        }
+
+        .menu {
+            margin-left: auto;
+            text-decoration: none;
+            color: #65676b;
+            font-size: 22px;
+        }
+
+        .post-text {
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        .post-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            color: #65676b;
+            font-size: 14px;
+            padding: 10px 2px;
+        }
+
+        .buttons {
+            display: flex;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .buttons a {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            text-decoration: none;
+            color: #65676b;
+            font-weight: bold;
+        }
+
+        .buttons a:hover {
+            background: #f0f2f5;
+        }
+
+        /* RIGHT */
+
+        .right-sidebar {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+
+        .contact-title {
+            color: #65676b;
+            margin-bottom: 10px;
+        }
+
+        .contact {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 9px;
+            border-radius: 8px;
+        }
+
+        .contact:hover {
+            background: #e4e6eb;
+        }
+
+        .contact img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1100px) {
+
+            .layout {
+                grid-template-columns: 230px 1fr;
+            }
+
+            .right-sidebar {
+                display: none;
+            }
+
+        }
+
+        @media (max-width: 750px) {
+
+            .layout {
+                display: block;
+                padding: 10px;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .nav-center {
+                display: none;
+            }
+
+            .search {
+                width: 160px;
+            }
+
+            .right .circle {
+                display: none;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="left">
+
+            <div class="logo">f</div>
+
+            <input
+                class="search"
+                type="text"
+                placeholder="Search Facebook"
+            >
+
+        </div>
+
+
+        <div class="nav-center">
+
+            <a href="#" class="active">🏠</a>
+
+            <a href="#">👥</a>
+
+            <a href="#">▶️</a>
+
+            <a href="#">🛒</a>
+
+        </div>
+
+
+        <div class="right">
+
+            <a class="signup-link" href="../sign%20up/sign%20uo/index.html">Create account</a>
+
+            <a href="#" class="circle">☰</a>
+
+            <a href="#" class="circle">💬</a>
+
+            <a href="#" class="circle">🔔</a>
+
+            <img
+                class="profile"
+                src="https://i.pravatar.cc/100?img=12"
+            >
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="layout">
+
+
+        <!-- LEFT SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="side-item">
+
+                <img
+                    class="side-profile"
+                    src="https://i.pravatar.cc/100?img=12"
+                >
+
+                <span>Your Name</span>
+
+            </div>
+
+            <div class="side-item">
+                <span class="side-icon">👥</span>
+                <span>Friends</span>
+            </div>
+
+            <div class="side-item">
+                <span class="side-icon">🕘</span>
+                <span>Memories</span>
+            </div>
+
+            <div class="side-item">
+                <span class="side-icon">💾</span>
+                <span>Saved</span>
+            </div>
+
+            <div class="side-item">
+                <span class="side-icon">👨‍👩‍👧</span>
+                <span>Groups</span>
+            </div>
+
+            <div class="side-item">
+                <span class="side-icon">🛒</span>
+                <span>Marketplace</span>
+            </div>
+
+            <div class="side-item">
+                <span class="side-icon">▶️</span>
+                <span>Video</span>
+            </div>
+
+            <hr class="line">
+
+            <h3 class="shortcuts">
+                Your shortcuts
+            </h3>
+
+            <div class="side-item">
+                🎮
+                <span>Gaming Community</span>
+            </div>
+
+            <div class="side-item">
+                💻
+                <span>Web Developers</span>
+            </div>
+
+        </aside>
+
+
+        <!-- CENTER -->
+
+        <section class="center">
+
+
+            <!-- STORIES -->
+
+            <div class="stories">
+
+                <div class="story">
+
+                    <img src="https://picsum.photos/300/500?random=1">
+
+                    <img
+                        class="story-avatar"
+                        src="https://i.pravatar.cc/100?img=12"
+                    >
+
+                    <span class="story-name">
+                        Your Story
+                    </span>
+
+                </div>
+
+
+                <div class="story">
+
+                    <img src="https://picsum.photos/300/500?random=2">
+
+                    <img
+                        class="story-avatar"
+                        src="https://i.pravatar.cc/100?img=5"
+                    >
+
+                    <span class="story-name">
+                        Sarah
+                    </span>
+
+                </div>
+
+
+                <div class="story">
+
+                    <img src="https://picsum.photos/300/500?random=3">
+
+                    <img
+                        class="story-avatar"
+                        src="https://i.pravatar.cc/100?img=8"
+                    >
+
+                    <span class="story-name">
+                        Alex
+                    </span>
+
+                </div>
+
+
+                <div class="story">
+
+                    <img src="https://picsum.photos/300/500?random=4">
+
+                    <img
+                        class="story-avatar"
+                        src="https://i.pravatar.cc/100?img=11"
+                    >
+
+                    <span class="story-name">
+                        Emma
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- CREATE POST -->
+
+            <div class="card">
+
+                <div class="create">
+
+                    <img
+                        class="avatar"
+                        src="https://i.pravatar.cc/100?img=12"
+                    >
+
+                    <input
+                        class="post-input"
+                        type="text"
+                        placeholder="What's on your mind?"
+                    >
+
+                </div>
+
+
+                <div class="post-actions">
+
+                    <a href="#">
+                        🔴 Live Video
+                    </a>
+
+                    <a href="#">
+                        🖼️ Photo/Video
+                    </a>
+
+                    <a href="#">
+                        😊 Feeling
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- POST 1 -->
+
+            <article class="card">
+
+                <div class="post-header">
+
+                    <img
+                        class="avatar"
+                        src="https://i.pravatar.cc/100?img=5"
+                    >
+
+                    <div class="post-info">
+
+                        <h3>
+                            Sarah Johnson
+                        </h3>
+
+                        <small>
+                            2 hrs · 🌎
+                        </small>
+
+                    </div>
+
+                    <a href="#" class="menu">
+                        •••
+                    </a>
+
+                </div>
+
+
+                <p class="post-text">
+
+                    Beautiful day! Sometimes you just need
+                    to enjoy the little things in life. ❤️
+
+                </p>
+
+
+                <img
+                    class="post-image"
+                    src="https://picsum.photos/800/500?random=20"
+                >
+
+
+                <div class="stats">
+
+                    <span>
+                        👍 ❤️ 1.2K
+                    </span>
+
+                    <span>
+                        124 comments · 32 shares
+                    </span>
+
+                </div>
+
+
+                <div class="buttons">
+
+                    <a href="#">
+                        👍 Like
+                    </a>
+
+                    <a href="#">
+                        💬 Comment
+                    </a>
+
+                    <a href="#">
+                        ↗️ Share
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- POST 2 -->
+
+            <article class="card">
+
+                <div class="post-header">
+
+                    <img
+                        class="avatar"
+                        src="https://i.pravatar.cc/100?img=8"
+                    >
+
+                    <div class="post-info">
+
+                        <h3>
+                            Alex Smith
+                        </h3>
+
+                        <small>
+                            5 hrs · 🌎
+                        </small>
+
+                    </div>
+
+                    <a href="#" class="menu">
+                        •••
+                    </a>
+
+                </div>
+
+
+                <p class="post-text">
+
+                    Working on a new project today! 💻🔥
+
+                </p>
+
+
+                <img
+                    class="post-image"
+                    src="https://picsum.photos/800/500?random=21"
+                >
+
+
+                <div class="stats">
+
+                    <span>
+                        👍 ❤️ 846
+                    </span>
+
+                    <span>
+                        72 comments · 18 shares
+                    </span>
+
+                </div>
+
+
+                <div class="buttons">
+
+                    <a href="#">
+                        👍 Like
+                    </a>
+
+                    <a href="#">
+                        💬 Comment
+                    </a>
+
+                    <a href="#">
+                        ↗️ Share
+                    </a>
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+        <!-- RIGHT SIDEBAR -->
+
+        <aside class="right-sidebar">
+
+            <h3 class="contact-title">
+                Contacts
+            </h3>
+
+
+            <div class="contact">
+
+                <img
+                    src="https://i.pravatar.cc/100?img=5"
+                >
+
+                <strong>
+                    Sarah Johnson
+                </strong>
+
+            </div>
+
+
+            <div class="contact">
+
+                <img
+                    src="https://i.pravatar.cc/100?img=8"
+                >
+
+                <strong>
+                    Alex Smith
+                </strong>
+
+            </div>
+
+
+            <div class="contact">
+
+                <img
+                    src="https://i.pravatar.cc/100?img=11"
+                >
+
+                <strong>
+                    Emma Wilson
+                </strong>
+
+            </div>
+
+
+            <div class="contact">
+
+                <img
+                    src="https://i.pravatar.cc/100?img=15"
+                >
+
+                <strong>
+                    Daniel Brown
+                </strong>
+
+            </div>
+
+
+            <div class="contact">
+
+                <img
+                    src="https://i.pravatar.cc/100?img=20"
+                >
+
+                <strong>
+                    Michael
+                </strong>
+
+            </div>
+
+        </aside>
+
+
+    </main>
+
+</body>
+</html>
+```
